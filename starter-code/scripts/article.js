@@ -2,8 +2,6 @@
 
 var articles = [];
 
-// TODO: Use the JS object passed in to complete this constructor function:
-// Save ALL the properties of `rawDataObj` into `this`
 
 function Article (rawDataObject) {
   this.title = rawDataObject.title;
@@ -13,18 +11,14 @@ function Article (rawDataObject) {
   this.pubDate = rawDataObject.pubDate;
   this.body = rawDataObject.body;
 }
-// Article();
+
+
+
 
 Article.prototype.toHtml = function() {
   var $newArticle = $('article.template').clone();
   console.log();
-  $('#articles').toggleClass('.template');
-  };
-
-  /* TODO: This cloned article still has a class of template.
-  However, in our modules.css stylesheet, we gave all elements
-  with a class of template a display of none. Let's make
-  sure we're not accidentally hiding our cloned article! */
+  $newArticle.removeClass('.template');
 
   if (!this.publishedOn) $newArticle.addClass('draft');
   $newArticle.data('category', this.category);
@@ -38,22 +32,20 @@ Article.prototype.toHtml = function() {
     4. article body, and
     5. publication date. */
 
-var h1= $( ".template" ).append( "<h1>" );
+// var h1= $( ".template" ).append( "<h1>" );
 
-
+  $newArticle.find('h1').html(this.title);
+  $newArticle.find('address a').attr('href',this.authorUrl);
+  $newArticle.find('time').attr('pubdate datetime', this.pubDate);
+  $newArticle.find('.article-body').text(this.title);
 // $title = $('h1')
 // $header
 // $
 // $title.html(this.title,)
-
-this.title
-this.name
-this.title
-this.body
-this.pubDate
-
-
   // Display the date as a relative number of 'days ago'
+
+
+
   $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
   $newArticle.append('<hr>');
   return $newArticle;
